@@ -1,14 +1,15 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { monedas } from "../data";
 import useSelectorMonedas from "../hooks/useSelectorMonedas";
 import Error from "./Error";
 
-function Formulario() {
+function Formulario({setMonedas}) {
   const [criptos, setCriptos] = useState([]);
 
 
   useEffect(() => {
-    const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD"
+    const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
     async function cargarApi() {
       const llamadaApi = await fetch(url);
       const respuesta = await llamadaApi.json();
@@ -35,14 +36,19 @@ function Formulario() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("Enviando...")
-
     if (moneda == "" || criptomoneda == "") {
       setError(true);
       return
     }
 
     setError(false);
+
+    setMonedas({
+      moneda,
+      criptomoneda,
+    })
+
+    console.log(criptomoneda)
   }
 
   
