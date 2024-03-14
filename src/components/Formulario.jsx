@@ -1,6 +1,7 @@
-import useSelectorMonedas from "../hooks/useSelectorMonedas"
-import { monedas } from "../data"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react";
+import { monedas } from "../data";
+import useSelectorMonedas from "../hooks/useSelectorMonedas";
+import Error from "./Error";
 
 function Formulario() {
   const [criptos, setCriptos] = useState([]);
@@ -26,16 +27,41 @@ function Formulario() {
     cargarApi()
   }, [])
 
-  const [ SelectorMonedas ] = useSelectorMonedas('Elige tu moneda', monedas)
-  const [ SelectorCriptos ] = useSelectorMonedas('Elige tu criptomoneda', criptos)
+  const [ SelectorMonedas, moneda ] = useSelectorMonedas('Elige tu moneda', monedas)
+  const [ SelectorCriptos, criptomoneda ] = useSelectorMonedas('Elige tu criptomoneda', criptos)
+
+  const [error, setError] = useState(false)
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log("Enviando...")
+
+    if (moneda == "" || criptomoneda == "") {
+      setError(true);
+      return
+    }
+
+    setError(false);
+  }
 
   
   return (
     <div className="contenedorForm">
       <h1 className="titulo">Cotiza Criptomonedas al Instante</h1>
 
-      <SelectorMonedas/>
-      <SelectorCriptos/>
+    {error && <Error/>}
+      <form
+        onSubmit={handleSubmit}
+      >
+        <SelectorMonedas/>
+        <SelectorCriptos/>
+
+        <input 
+          type="submit"
+          value="COTIZAR"
+        />
+      </form>
     </div>
 
     )

@@ -1,10 +1,17 @@
+import { useState } from "react"
+
 function useSelectorMonedas(label, opciones){
+
+    const [state, setState] = useState('');
 
     const SelectorMonedas = () => (
         <>
             <label>{label}</label>
 
-            <select>
+            <select
+                value={state}
+                onChange={e => setState(e.target.value)}
+                >
                 <option value="">--Selecciona una moneda--</option>
     
                 {opciones.map(opcion => (
@@ -17,7 +24,7 @@ function useSelectorMonedas(label, opciones){
         </>
     )
 
-    return [ SelectorMonedas ]
+    return [ SelectorMonedas, state ]
   
 }
 
