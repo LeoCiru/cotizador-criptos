@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 function MostrarCotizacion({cotizacion}) {
     const {precio, ultimaActualizacion, precioMasBajo, precioMasAlto, imagen} = cotizacion
   return (

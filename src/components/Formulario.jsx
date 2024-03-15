@@ -47,8 +47,6 @@ function Formulario({setMonedas}) {
       moneda,
       criptomoneda,
     })
-
-    console.log(criptomoneda)
   }
 
   
